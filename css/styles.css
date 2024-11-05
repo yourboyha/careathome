@@ -1,0 +1,154 @@
+:root {
+  --primary-color: #003060; /* สีน้ำเงินเข้ม */
+  --secondary-color: #055c9d; /* สีฟ้าเข้ม */
+  --accent-color: #68bbe3; /* สีฟ้าอ่อน */
+  --bg-text-color: #D4F1F4;
+  --text-color: #ffffff; /* สีขาว */
+}
+
+body {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+footer {
+  background-color: var(--accent-color); /* ตั้งค่าสีพื้นหลังของ footer */
+  color: white; /* ตั้งค่าสีตัวอักษรใน footer */
+  text-align: center;
+  padding: 10px 0; /* ตั้งค่า padding ให้ footer */
+  margin-top: auto; /* ทำให้ footer อยู่ด้านล่างสุด */
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--secondary-color);
+  padding: 10px 20px;
+}
+
+.list-group-item {
+  background-color: #21B6A8;
+  color: white;
+}
+
+
+.container {
+  min-height: calc(100vh - 60px); /* ปรับความสูงของ container ให้หักความสูงของ footer */
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar-brand, .nav-link {
+  color: white !important;
+}
+
+
+.navbar ul li {
+  margin: 0 15px;
+}
+
+
+.auth-links a {
+  color: white;
+  margin-left: 15px;
+  text-decoration: none;
+}
+
+.banner {
+  background-color: var(--primary-color); 
+  padding: 50px;
+  text-align: center;
+}
+
+.banner h1 {
+  color: white;
+  font-size: 2.5rem;
+}
+
+.knowledge {
+  padding: 20px;
+  background-color: #fff;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.knowledge h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--primary-color); /* สีหัวข้อ */
+}
+
+.articles {
+  display: flex;
+  justify-content: space-between;
+}
+
+.articles article {
+  width: 45%;
+  background-color: var(--bg-text-color); /* สีพื้นหลังของบทความ */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.articles article h3 {
+  color: var(--secondary-color); 
+  margin-bottom: 10px;
+}
+
+.statistics {
+  padding: 20px;
+  text-align: center;
+  background-color: var(--bg-text-color); /* สีพื้นหลังส่วนสถิติ */
+  color: var(--secondary-color);
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.rating {
+  padding: 20px;
+  text-align: center;
+  background-color: #fff;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#userDropdown {
+  display: inline-block; 
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px; /* ระยะห่างจากตัวอักษร */
+  border-radius: 4px;
+  padding: 2px 4px; /* เพิ่ม padding เพียงเล็กน้อย */
+
+}
+
+.dropdown-menu {
+  min-width: auto; /* ตั้งค่าให้ dropdown มีขนาดพอดีกับเนื้อหา */
+  transform: translateY(5px); /* เลื่อน dropdown ลงเล็กน้อยให้อยู่ใต้คำว่า admin */
+}
+
+@media (max-width: 768px) {
+  #userDropdown {
+      padding: 4px 6px;
+      border-radius: 2px;
+      font-size: 0.9rem;
+  }
+  .auth-links a {
+      font-size: 0.9rem;
+      padding: 4px 8px;
+  }
+}
+
+#toggle-button {
+  position: absolute;
+  top: 10px; /* ปรับค่า top เพื่อกำหนดระยะห่างจากด้านบน */
+  left: 150px; /* ปรับค่า left เพื่อกำหนดระยะห่างจากด้านซ้าย */
+}
+
+#user-section {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
