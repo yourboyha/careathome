@@ -2,10 +2,11 @@
     <div class="container-fluid">
         <!-- Navbar Brand -->
         <?php
-            echo '<a class="navbar-brand" href="/careathome/">Care @ Home</a>';
+        echo '<a class="navbar-brand" href="/careathome/">Care @ Home</a>';
         ?>
         <!-- Toggle button for small screens -->
-        <button class="navbar-toggler" id="toggle-button" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" id="toggle-button" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -42,6 +43,7 @@
                         echo '<li><a class="dropdown-item" href="/careathome/src/view/admin/pr/manage_pr.php">จัดการข่าวประชาสัมพันธ์</a></li>';
                         echo '<li><a class="dropdown-item" href="/careathome/src/view/admin/review/manage_review.php">จัดการรีวิว</a></li>';
                         echo '<li><a class="dropdown-item" href="/careathome/src/view/admin/webboard/manage_webboard.php">จัดการเว็บบอร์ด</a></li>';
+                        echo '<li><a class="dropdown-item" href="/careathome/src/view/admin/webboard/create_thread.php">create_thread.php</a></li>';
                         echo '<li><a class="dropdown-item" href="/careathome/src/view/admin/report.php">ดูรายงาน</a></li>';
                         break;
 
@@ -57,7 +59,7 @@
                         echo '<li><a class="dropdown-item" href="index.php?page=user_feedback">แสดงความคิดเห็น</a></li>';
                         break;
                 }
-                
+
                 echo '<li><a class="dropdown-item" href="/careathome/logout.php">ออกจากระบบ</a></li>';
                 echo '</ul>';
                 echo '</div>';
