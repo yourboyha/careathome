@@ -1,7 +1,6 @@
 <div class="container mt-5">
     <h1 class="text-center">ลงทะเบียน</h1>
-    <!-- <form action="Controller/submit_register.php" method="POST"> -->
-    <form action="src/controller/submit_register.php" method="POST">
+    <form action="src/controller/submit_register.php" method="POST" onsubmit="return validatePasswords()">
 
         <div class="mb-3">
             <label for="username" class="form-label">ชื่อผู้ใช้:</label>
@@ -22,3 +21,27 @@
         <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
     </form>
 </div>
+<?php if (isset($_SESSION['error'])): ?>
+    <script>
+        alert("<?= $_SESSION['error'] ?>");
+    </script>
+    <?php unset($_SESSION['error']); ?>
+<?php elseif (isset($_SESSION['success'])): ?>
+    <script>
+        alert("<?= $_SESSION['success'] ?>");
+    </script>
+    <?php unset($_SESSION['success']); ?>
+<?php endif; ?>
+
+<script>
+    function validatePasswords() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm_password").value;
+
+        if (password !== confirmPassword) {
+            alert("รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน กรุณาลองใหม่");
+            return false; // หยุดการ submit
+        }
+        return true; // รหัสผ่านตรงกัน อนุญาตให้ส่งฟอร์ม
+    }
+</script>

@@ -15,6 +15,14 @@ $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
+// ดึงข้อมูล patient_info สำหรับ user_id นี้
+$patient_sql = "SELECT * FROM patient_info WHERE user_id = ?";
+$patient_stmt = $conn->prepare($patient_sql);
+$patient_stmt->bind_param("i", $id);
+$patient_stmt->execute();
+$patient_result = $patient_stmt->get_result();
+$patient = $patient_result->fetch_assoc();
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email'];
@@ -22,11 +30,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $fullname = $_POST['fullname'];
     $address = $_POST['address'];
     $telephone = $_POST['telephone'];
+    $patient_info = $_POST['patient_info']; // เพิ่มฟิลด์สำหรับ patient_info
 
+    // อัปเดตข้อมูลในตาราง users
     $sql = "UPDATE users SET username = ?, email = ?, role = ?, fullname = ?, address = ?, telephone = ? WHERE user_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssssssi", $username, $email, $role, $fullname, $address, $telephone, $id);
     $stmt->execute();
+
+    // อัปเดตข้อมูลในตาราง patient_info
+    if ($patient) {
+        $update_patient_sql = "UPDATE patient_info SET patient_info = ? WHERE user_id = ?";
+        $update_patient_stmt = $conn->prepare($update_patient_sql);
+        $update_patient_stmt->bind_param("si", $patient_info, $id);
+        $update_patient_stmt->execute();
+    } else {
+        $insert_patient_sql = "INSERT INTO patient_info (user_id, patient_info) VALUES (?, ?)";
+        $insert_patient_stmt = $conn->prepare($insert_patient_sql);
+        $insert_patient_stmt->bind_param("is", $id, $patient_info);
+        $insert_patient_stmt->execute();
+    }
 
     header("Location: manage_members.php");
     exit();
@@ -37,53 +60,67 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="th">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เพิ่มผู้ใช้งาน</title>
-  <link rel="stylesheet" href="../../../../css/styles.css">
-  <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แก้ไขข้อมูลสมาชิก</title>
+    <link rel="stylesheet" href="../../../../css/styles.css">
+    <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
 </head>
 
 <body>
-  <?php include "../../../../HeaderFooter/header.php"; ?>
-<div class="container mt-5">
-    <h2>แก้ไขข้อมูลสมาชิก</h2>
-    <form method="post" action="">
-        <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" name="username" value="<?= htmlspecialchars($user['username']) ?>" required>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
-        </div>
-        <div class="mb-3">
-            <label for="role" class="form-label">Role</label>
-            <select class="form-control" id="role" name="role" required>
-                <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
-                <option value="user" <?= $user['role'] == 'user' ? 'selected' : '' ?>>User</option>
-                <option value="staff" <?= $user['role'] == 'staff' ? 'selected' : '' ?>>Staff</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="fullname" class="form-label">Fullname</label>
-            <input type="text" class="form-control" id="fullname" name="fullname" value="<?= htmlspecialchars($user['fullname']) ?>" required>
-        </div>
-        <div class="mb-3">
-            <label for="address" class="form-label">Address</label>
-            <input type="text" class="form-control" id="address" name="address" value="<?= htmlspecialchars($user['address']) ?>" required>
-        </div>
-        <div class="mb-3">
-            <label for="telephone" class="form-label">Telephone</label>
-            <input type="text" class="form-control" id="telephone" name="telephone" value="<?= htmlspecialchars($user['telephone']) ?>" required>
-        </div>
-        <button type="submit" class="btn btn-success">บันทึกการเปลี่ยนแปลง</button>
-        <a href="manage_members.php" class="btn btn-secondary">ยกเลิก</a>
-    </form>
-</div>
-<?php include "../../../../HeaderFooter/footer.php"; ?>
+    <?php include "../../../../HeaderFooter/header.php"; ?>
+    <div class="container mt-5">
+        <h2>แก้ไขข้อมูลสมาชิก</h2>
+        <form method="post" action="">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username"
+                    value="<?= htmlspecialchars($user['username']) ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>"
+                    required>
+            </div>
+            <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <select class="form-control" id="role" name="role" required>
+                    <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
+                    <option value="user" <?= $user['role'] == 'user' ? 'selected' : '' ?>>User</option>
+                    <option value="staff" <?= $user['role'] == 'staff' ? 'selected' : '' ?>>Staff</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="fullname" class="form-label">Fullname</label>
+                <input type="text" class="form-control" id="fullname" name="fullname"
+                    value="<?= htmlspecialchars($user['fullname']) ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" class="form-control" id="address" name="address"
+                    value="<?= htmlspecialchars($user['address']) ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="telephone" class="form-label">Telephone</label>
+                <input type="text" class="form-control" id="telephone" name="telephone"
+                    value="<?= htmlspecialchars($user['telephone']) ?>" required>
+            </div>
+            <?php if ($user['role'] === 'user') : ?>
+                <div class="mb-3">
+                    <label for="patient_info" class="form-label">ข้อมูลผู้สูงอายุ</label>
+                    <textarea class="form-control" id="patient_info" name="patient_info" rows="4"
+                        required><?= htmlspecialchars($patient['patient_info'] ?? '') ?></textarea>
+                </div>
+            <?php endif; ?>
+            <button type="submit" class="btn btn-success">บันทึกการเปลี่ยนแปลง</button>
+            <a href="manage_members.php" class="btn btn-secondary">ยกเลิก</a>
+        </form>
+    </div>
+    <?php include "../../../../HeaderFooter/footer.php"; ?>
 
-<script src="../../../../js/bootstrap.bundle.min.js"></script>
+    <script src="../../../../js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
+
+<?php $conn->close(); ?>

@@ -7,16 +7,14 @@ if ($_SESSION['role'] !== 'admin') {
   exit();
 }
 
-// ฟังก์ชันค้นหาข้อมูลรีวิว
+// ฟังก์ชันค้นหาข้อมูลกระทู้
 $searchTerm = '';
 if (isset($_POST['search'])) {
   $searchTerm = $_POST['search_term'];
 }
 
-// ดึงข้อมูลรีวิวจากฐานข้อมูล
-$sql = "SELECT * FROM webboard WHERE 
-    title LIKE '%$searchTerm%' OR 
-    content LIKE '%$searchTerm%'";
+// ดึงข้อมูลกระทู้จากฐานข้อมูล
+$sql = "SELECT * FROM threads WHERE title LIKE '%$searchTerm%' OR content LIKE '%$searchTerm%'";
 $result = $conn->query($sql);
 ?>
 
@@ -26,7 +24,7 @@ $result = $conn->query($sql);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ผู้ดูแลระบบ - จัดการเว็บบอร์ด</title>
+  <title>ผู้ดูแลระบบ - จัดการกระทู้ Webboard</title>
   <link rel="stylesheet" href="../../../../css/styles.css">
   <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
 </head>
@@ -37,29 +35,27 @@ $result = $conn->query($sql);
   ?>
 
   <div class="container mt-5">
-    <h1 class="mb-4 text-center">จัดการเว็บบอร์ด</h1>
+    <h1 class="mb-4 text-center">จัดการกระทู้ Webboard</h1>
 
     <!-- ฟอร์มค้นหาข้อมูล -->
     <form class="mb-4" method="POST" action="">
       <div class="input-group">
-        <input type="text" class="form-control" name="search_term" placeholder="ค้นหาหัวข้อหรือเนื้อหา"
+        <input type="text" class="form-control" name="search_term" placeholder="ค้นหากระทู้"
           value="<?php echo htmlspecialchars($searchTerm); ?>">
         <button class="btn btn-primary" type="submit" name="search">ค้นหา</button>
       </div>
     </form>
 
-    <!-- ปุ่มเพิ่มโพสต์ใหม่ -->
-    <a href="add_webboard.php" class="btn btn-success mb-3">เพิ่มโพสต์ใหม่</a>
-
-    <!-- แสดงตารางโพสต์เว็บบอร์ด -->
+    <a href="create_thread.php" class="btn btn-success mb-3">เพิ่มกระทู้</a>
+    <!-- แสดงตารางกระทู้ -->
     <table class="table table-bordered table-striped">
       <thead class="thead-dark text-center">
         <tr>
-          <th>รหัสโพสต์</th>
-          <th>หัวข้อ</th>
-          <th>วันที่</th>
+          <th>รหัสกระทู้</th>
+          <th>ชื่อกระทู้</th>
           <th>เนื้อหา</th>
-          <th colspan="2">จัดการโพสต์</th>
+          <th>วันที่สร้าง</th>
+          <th>จัดการกระทู้</th>
         </tr>
       </thead>
       <tbody>
@@ -67,16 +63,16 @@ $result = $conn->query($sql);
         if ($result->num_rows > 0) {
           while ($row = $result->fetch_assoc()) {
             echo "<tr>";
-            echo "<td>" . htmlspecialchars($row['id']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['title']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['thread_id']) . "</td>";
+            // เพิ่มลิงก์ไปยังหน้าแสดงโพสต์
+            echo "<td><a href='view_thread.php?id=" . $row['thread_id'] . "'>" . htmlspecialchars($row['title']) . "</a></td>";
             echo "<td>" . htmlspecialchars($row['content']) . "</td>";
-            echo "<td class='text-center'><a href='edit_webboard.php?id=" . $row['id'] . "' class='btn btn-warning'>แก้ไข</a></td>";
-            echo "<td class='text-center'><a href='delete_webboard.php?id=" . $row['id'] . "' class='btn btn-danger' onclick='return confirm(\"คุณแน่ใจว่าต้องการลบโพสต์นี้?\");'>ลบ</a></td>";
+            echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
+            echo "<td class='text-center'><a href='delete_thread.php?id=" . $row['thread_id'] . "' class='btn btn-danger' onclick='return confirm(\"คุณแน่ใจว่าต้องการลบกระทู้นี้?\");'>ลบ</a></td>";
             echo "</tr>";
           }
         } else {
-          echo "<tr><td colspan='6' class='text-center'>ไม่มีข้อมูลโพสต์ในเว็บบอร์ด</td></tr>";
+          echo "<tr><td colspan='6' class='text-center'>ไม่มีข้อมูลกระทู้</td></tr>";
         }
         ?>
       </tbody>

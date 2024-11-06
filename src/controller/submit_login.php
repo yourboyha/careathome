@@ -1,5 +1,5 @@
 <?php
-session_start(); 
+session_start();
 include "connect.php";
 
 // ตรวจสอบว่ามีการส่งข้อมูลฟอร์มหรือไม่
@@ -20,18 +20,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // ตรวจสอบรหัสผ่านที่ hash ไว้
         if (password_verify($password, $row['password'])) {
             // รหัสผ่านถูกต้อง
+            $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $row['role'];
 
             switch ($_SESSION['role']) {
                 case 'admin':
-                    header("Location: ../view/admin/dashboard.php");
-                    exit(); 
+                    header("Location: ../view/admin/index.php");
+                    exit();
                 case 'user':
-                    header("Location: ../view/user/dashboard.php");
+                    header("Location: ../view/user/index.php");
                     exit();
                 case 'staff':
-                    header("Location: ../view/staff/dashboard.php");
+                    header("Location: ../view/staff/index.php");
                     exit();
                 default:
                     header("Location: index.php");

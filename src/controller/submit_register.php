@@ -2,19 +2,20 @@
 session_start();
 
 include "connect.php";
-// ตรวจสอบว่ามีการส่งข้อมูลจากฟอร์มหรือไม่
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-
 
     // ตรวจสอบว่าชื่อผู้ใช้มีอยู่แล้วในฐานข้อมูลหรือไม่
     $checkUser = "SELECT * FROM users WHERE username='$username'";
     $result = $conn->query($checkUser);
 
     if ($result->num_rows > 0) {
-        echo "Username already taken!";
+        $_SESSION['error'] = "ชื่อผู้ใช้นี้มีอยู่ในระบบแล้ว กรุณาเลือกชื่อผู้ใช้ใหม่";
+        header("Location: /careathome/index.php?page=register");
+        exit();
     } else {
         // เข้ารหัสรหัสผ่านก่อนบันทึกลงในฐานข้อมูล
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -23,13 +24,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO users (username, email, password, role) VALUES ('$username', '$email','$hashedPassword','user')";
 
         if ($conn->query($sql) === TRUE) {
-            echo "Registration successful! You can now log in.";
+            $_SESSION['success'] = "ลงทะเบียนสำเร็จ! กรุณาเข้าสู่ระบบ";
             header("Location: ../../index.php?page=login");
+            exit();
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            $_SESSION['error'] = "เกิดข้อผิดพลาดในการลงทะเบียน กรุณาลองใหม่อีกครั้ง";
+            header("Location: /careathome/index.php?page=register");
+            exit();
         }
     }
 }
 
-$conn->close(); // ปิดการเชื่อมต่อ
-?>
+$conn->close();

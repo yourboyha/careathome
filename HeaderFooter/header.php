@@ -40,23 +40,18 @@
                     case 'admin': // แอดมิน
                         echo '<li><a class="dropdown-item" href="/careathome/src/view/admin/dashboard.php">แดชบอร์ดแอดมิน</a></li>';
                         echo '<li><a class="dropdown-item" href="/careathome/src/view/admin/member/manage_members.php">จัดการผู้ใช้งาน</a></li>';
+                        echo '<li><a class="dropdown-item" href="/careathome/src/view/admin/package/manage_package.php">จัดการแพคเกจ</a></li>';
                         echo '<li><a class="dropdown-item" href="/careathome/src/view/admin/pr/manage_pr.php">จัดการข่าวประชาสัมพันธ์</a></li>';
                         echo '<li><a class="dropdown-item" href="/careathome/src/view/admin/review/manage_review.php">จัดการรีวิว</a></li>';
                         echo '<li><a class="dropdown-item" href="/careathome/src/view/admin/webboard/manage_webboard.php">จัดการเว็บบอร์ด</a></li>';
-                        echo '<li><a class="dropdown-item" href="/careathome/src/view/admin/webboard/create_thread.php">create_thread.php</a></li>';
                         echo '<li><a class="dropdown-item" href="/careathome/src/view/admin/report.php">ดูรายงาน</a></li>';
                         break;
-
-                    case 'staff': // พนักงาน
-                        echo '<li><a class="dropdown-item" href="edit_profile">แก้ไขข้อมูลส่วนตัว</a></li>';
-                        echo '<li><a class="dropdown-item" href="index.php?page=employee_dashboard">แดชบอร์ดพนักงาน</a></li>';
-                        echo '<li><a class="dropdown-item" href="index.php?page=employee_tasks">ดูงานที่ได้รับมอบหมาย</a></li>';
-                        break;
-
                     case 'user': // ผู้ใช้งาน
-                        echo '<li><a class="dropdown-item" href="edit_profile">แก้ไขข้อมูลส่วนตัว</a></li>';
-                        echo '<li><a class="dropdown-item" href="index.php?page=user_dashboard">แดชบอร์ดผู้ใช้งาน</a></li>';
-                        echo '<li><a class="dropdown-item" href="index.php?page=user_feedback">แสดงความคิดเห็น</a></li>';
+                        echo '<li><a class="dropdown-item" href="/careathome/src/view/user/index.php">หน้าหลักผู้ใช้งาน</a></li>';
+                        echo '<li><a class="dropdown-item" href="/careathome/src/view/user/index.php?page=showprofile">แก้ไขข้อมูลส่วนตัว</a></li>';
+                        echo '<li><a class="dropdown-item" href="/careathome/src/view/user/index.php?page=showpatient">บันทึกข้อมูลคนไข้</a></li>';
+                        echo '<li><a class="dropdown-item" href="/careathome/src/view/user/index.php?page=showpackage">เลือกแพคเกจ</a></li>';
+                        echo '<li><a class="dropdown-item" href="/careathome/src/view/user/index.php?page=review">รีวิว</a></li>';
                         break;
                 }
 

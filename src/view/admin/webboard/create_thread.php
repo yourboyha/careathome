@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt->bind_param("iss", $user_id, $title, $content);
 
   if ($stmt->execute()) {
-    header("Location: view_threads.php");
+    header("Location: view_thread.php");
     exit();
   } else {
     echo "เกิดข้อผิดพลาด: " . $stmt->error;
