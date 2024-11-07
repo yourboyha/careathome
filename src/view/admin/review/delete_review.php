@@ -1,12 +1,5 @@
 <?php
-session_start();
-include "../../../controller/connect.php";
-
-// ตรวจสอบสิทธิ์ผู้ใช้งาน
-if ($_SESSION['role'] !== 'admin') {
-  header("Location: /careathome/index.php?page=login");
-  exit();
-}
+include 'chkadminid.php';
 
 // ตรวจสอบว่ามีการส่ง rating_id มาหรือไม่
 if (isset($_GET['id'])) {
@@ -22,18 +15,12 @@ if (isset($_GET['id'])) {
   // ดำเนินการลบ
   if ($stmt->execute()) {
     // หากลบสำเร็จ ให้กลับไปยังหน้าจัดการรีวิว
-    header("Location: manage_review.php");
+    header("Location: ?page=review");
     exit();
   } else {
     // หากเกิดข้อผิดพลาด
     echo "เกิดข้อผิดพลาดในการลบรีวิว: " . $conn->error;
   }
-
-  // ปิด statement
-  $stmt->close();
 } else {
   echo "ไม่มีรหัสรีวิวที่ต้องการลบ.";
 }
-
-// ปิดการเชื่อมต่อ
-$conn->close();

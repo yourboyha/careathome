@@ -1,10 +1,9 @@
 <?php
 session_start();
-if ($_SESSION['role'] !== 'admin') {
-    header("Location: /careathome/index.php?page=login");
-    exit();
-}
+include "../../controller/connect.php";
+include 'chkadmin.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="th">
 
@@ -18,42 +17,70 @@ if ($_SESSION['role'] !== 'admin') {
 
 <body>
   <?php
-    include "../../../HeaderFooter/header.php";
-    ?>
+  include "../../../HeaderFooter/header.php";
 
-
-  <div class="container mt-5">
-    <h1 class="text-center">ยินดีต้อนรับผู้ดูแลระบบ</h1>
-    <div class="mb-4">
-      <h2>จัดการข้อมูลผู้ใช้งาน</h2>
-      <a href="member/manage_members.php" class="btn btn-primary btn-lg w-100">จัดการผู้ใช้งาน</a>
-    </div>
-    <div class="mb-4">
-      <h2>จัดการส่วนประชาสัมพันธ์</h2>
-      <a href="pr/manage_pr.php" class="btn btn-primary btn-lg w-100">จัดการประชาสัมพันธ์</a>
-    </div>
-    <div class="mb-4">
-      <h2>จัดการแบบประเมิน</h2>
-      <a href="review/manage_review.php" class="btn btn-primary btn-lg w-100">จัดการแบบประเมิน</a>
-    </div>
-    <div class="mb-4">
-      <h2>จัดการเว็บบอร์ด</h2>
-      <a href="webboard/manage_webboard.php" class="btn btn-primary btn-lg w-100">จัดการเว็บบอร์ด</a>
-    </div>
-    <div class="mb-4">
-      <h2>ระบบรายงานผล</h2>
-      <a href="report.php" class="btn btn-primary btn-lg w-100">ดูรายงาน</a>
-    </div>
-  </div>
+  // ตรวจสอบว่าได้รับค่า page จาก URL หรือไม่
+  if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+    // กรณีเลือกหน้าต่างๆ ของแอดมิน
+    if ($page == 'members') {
+      include "member/members.php";
+    } else if ($page == 'add_member') {
+      include "member/add_member.php";
+    } else if ($page == 'edit_member') {
+      include "member/edit_member.php";
+    } else if ($page == 'delete_member') {
+      include "member/delete_member.php";
+    } else if ($page == 'pr') {
+      include "pr/pr.php";
+    } else if ($page == 'package') {
+      include "package/package.php";
+    } else if ($page == 'add_package') {
+      include "package/add_package.php";
+    } else if ($page == 'edit_package') {
+      include "package/edit_package.php";
+    } else if ($page == 'delete_package') {
+      include "package/delete_package.php";
+    } else if ($page == 'view_users') {
+      include "package/view_users.php";
+    } else if ($page == 'pr') {
+      include "pr/pr.php";
+    } else if ($page == 'add_pr') {
+      include "pr/add_pr.php";
+    } else if ($page == 'delete_pr') {
+      include "pr/delete_pr.php";
+    } else if ($page == 'edit_pr') {
+      include "pr/edit_pr.php";
+    } else if ($page == 'review') {
+      include "review/review.php";
+    } else if ($page == 'delete_review') {
+      include "review/delete_review.php";
+    } else if ($page == 'webboard') {
+      include "webboard/webboard.php";
+    } else if ($page == 'create_thread') {
+      include "webboard/create_thread.php";
+    } else if ($page == 'view_thread') {
+      include "webboard/view_thread.php";
+    } else if ($page == 'delete_thread') {
+      include "webboard/delete_thread.php";
+    } else if ($page == 'report') {
+      include "report.php";
+    } else {
+      include "home.php";
+    }
+  } else {
+    include "home.php";
+  }
+  ?>
 
   <?php
-    include "../../../HeaderFooter/footer.php"
-    ?>
+  include "../../../HeaderFooter/footer.php"
+  ?>
 
-  <script src="../../../js/bootstrap.bundle.min.js"></script>
-  <script src="../../../js/script.js"></script>
 
 
 </body>
 
 </html>
+
+<?php $conn->close(); ?>

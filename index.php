@@ -22,19 +22,15 @@ include "src/controller/connect.php";
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
         if ($page == 'about') {
-            include "src/view/about.php";
+            include "src/view/public/about.php";
         } else if ($page == 'services') {
-            include "src/view/services.php";
+            include "src/view/public/services.php";
         } else if ($page == 'contact') {
-            include "src/view/contact.php";
-        } else if ($page == 'forum') {
-            include "src/view/forum.php";
+            include "src/view/public/contact.php";
         } else if ($page == 'login') {
             include "src/view/login.php";
         } else if ($page == 'register') {
             include "src/view/register.php";
-        } else if ($page == 'edit_profile') {
-            include "src/view/edit_profile.php";
         } else if ($page == 'logout') {
             include "src/Controller/logout.php";
         } else {
@@ -45,9 +41,6 @@ include "src/controller/connect.php";
     }
     include "HeaderFooter/footer.php"
     ?>
-
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
 
 
 </body>

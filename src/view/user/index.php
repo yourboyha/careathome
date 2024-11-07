@@ -1,12 +1,8 @@
 <?php
 session_start();
-
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user') {
-  header("Location: /careathome/index.php?page=login");
-  exit();
-}
+include "../../controller/connect.php";
+include "chkss.php";
 ?>
-
 
 <!DOCTYPE html>
 <html lang="th">
@@ -15,8 +11,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user') {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>บริการดูแลผู้สูงอายุ</title>
-  <link rel="stylesheet" href="../../../css/styles.css">
-  <link rel="stylesheet" href="../../../css/bootstrap.min.css">
+  <link rel="stylesheet" href="/careathome/css/styles.css">
+  <link rel="stylesheet" href="/careathome/css/bootstrap.min.css">
   <style>
     /* ลด margin ด้านล่างของเมนู */
     .list-group {
@@ -43,21 +39,18 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user') {
     // ตรวจสอบว่า page มีการส่งค่ามาหรือไม่ และแสดงเนื้อหาตามที่เลือก
     if (isset($_GET['page'])) {
       $page = $_GET['page'];
-      if ($page == 'showprofile') {
-        include "home.php";
-        echo '<div class="mb-4"></div>';
-        include "profile/showprofile.php";
-      } else if ($page == 'showpatient') {
-        include "home.php";
-        echo '<div class="mb-4"></div>';
-        include "patient/showpatient.php";
-      } else if ($page == 'showpackage') {
-        include "home.php";
-        echo '<div class="mb-4"></div>';
+      if ($page == 'profile') {
+        include "showprofile.php";
+      } else if ($page == 'patient') {
+        include "showpatient.php";
+      } else if ($page == 'package') {
         include "showpackage.php";
+      } else if ($page == 'webboard') {
+        include "webboard/show_webboard.php";
+      } else if ($page == 'view_thread' && isset($_GET['id'])) {
+        // ตรวจสอบว่ามี id กระทู้หรือไม่ก่อนแสดงรายละเอียดกระทู้
+        include "webboard/view_thread.php";
       } else if ($page == 'review') {
-        include "home.php";
-        echo '<div class="mb-4"></div>';
         include "review.php";
       } else {
         include "home.php";
@@ -71,8 +64,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user') {
   <?php
   include "../../../HeaderFooter/footer.php"
   ?>
-  <script src="../../../js/bootstrap.bundle.min.js"></script>
-  <script src="../../../js/script.js"></script>
 
 </body>
 

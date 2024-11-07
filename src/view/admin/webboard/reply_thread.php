@@ -1,12 +1,5 @@
 <?php
-session_start();
-include "../../../controller/connect.php";
-
-// ตรวจสอบผู้ใช้
-if (!isset($_SESSION['user_id'])) {
-  header("Location: /careathome/index.php?page=login");
-  exit();
-}
+include 'chkadminid.php';
 
 // เมื่อมีการส่งฟอร์ม
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -20,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt->bind_param("iis", $thread_id, $user_id, $content);
 
   if ($stmt->execute()) {
-    header("Location: view_thread.php?thread_id=" . $thread_id);
+    header("Location: ?page=view_thread&thread_id=" . $thread_id);
     exit();
   } else {
     echo "เกิดข้อผิดพลาด: " . $stmt->error;
