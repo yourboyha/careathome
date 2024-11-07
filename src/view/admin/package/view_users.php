@@ -39,8 +39,7 @@ $result_users = $stmt->get_result();
   <?php else : ?>
     <p class="text-center">ไม่มีผู้ใช้เลือกแพ็คเกจนี้</p>
   <?php endif; ?>
-
-  <a href="?page=package" class="btn btn-secondary mt-3">กลับไปยังหน้าจัดการแพ็คเกจ</a>
+  <div class="text-center mb-3">
+    <a href="?page=package" class="btn btn-secondary mt-3">กลับไปยังหน้าจัดการแพ็คเกจ</a>
+  </div>
 </div>
-
-<?php $conn->close(); ?>

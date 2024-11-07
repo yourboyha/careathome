@@ -29,10 +29,18 @@ include "src/controller/connect.php";
             include "src/view/public/contact.php";
         } else if ($page == 'login') {
             include "src/view/login.php";
+        } else if ($page == 'submit_login') {
+            include "src/controller/submit_login.php";
         } else if ($page == 'register') {
             include "src/view/register.php";
+        } else if ($page == 'submit_register') {
+            include "src/controller/submit_register.php";
         } else if ($page == 'logout') {
             include "src/Controller/logout.php";
+        } else if ($page == 'admin') {
+            header("Location: /careathome/src/view/admin/index.php");
+        } else if ($page == 'user') {
+            header("Location: /careathome/src/view/user/index.php");
         } else {
             include "src/view/home.php";
         }

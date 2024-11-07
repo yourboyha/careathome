@@ -31,7 +31,7 @@ $result = $conn->query($sql);
 
   <!-- ปุ่มเพิ่มกระทู้ (สำหรับผู้ใช้งานที่มีสิทธิ์) -->
   <?php if ($_SESSION['role'] === 'user'): ?>
-    <a href="create_thread.php" class="btn btn-success mb-3">เพิ่มกระทู้</a>
+    <a href="?page=create_thread" class="btn btn-success mb-3">เพิ่มกระทู้</a>
   <?php endif; ?>
 
   <!-- แสดงรายการกระทู้ -->

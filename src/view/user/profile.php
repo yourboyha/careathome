@@ -4,7 +4,7 @@ include "chkss.php";
 $user_id = $_SESSION['user_id'];
 
 // ดึงข้อมูลผู้ใช้จากฐานข้อมูล
-$sql = "SELECT * FROM Users WHERE user_id = ?";
+$sql = "SELECT * FROM users WHERE user_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -21,8 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $address = $_POST['address'];
   $telephone = $_POST['telephone'];
 
+  echo $fullname;
+
   // อัพเดตข้อมูลในฐานข้อมูล
-  $updateSql = "UPDATE Users SET username = ?, email = ?, role = ?, Fullname = ?, address = ?, telephone = ? WHERE user_id = ?";
+  $updateSql = "UPDATE users SET username = ?, email = ?, role = ?, fullname = ?, address = ?, telephone = ? WHERE user_id = ?";
   $updateStmt = $conn->prepare($updateSql);
   $updateStmt->bind_param("ssssssi", $username, $email, $role, $fullname, $address, $telephone, $user_id);
 
@@ -45,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="alert alert-info"><?php echo $message; ?></div>
   <?php } ?>
 
-  <form method="POST" action="index.php?page=showprofile">
+  <form method="POST" action="index.php?page=profile">
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
       <input type="text" class="form-control" id="username" name="username"
@@ -61,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <select class="form-control" id="role" name="role" required>
         <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
         <option value="user" <?= $user['role'] == 'user' ? 'selected' : '' ?>>User</option>
-        <option value="staff" <?= $user['role'] == 'staff' ? 'selected' : '' ?>>Staff</option>
       </select>
     </div>
     <div class="mb-3">
@@ -79,9 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <input type="text" class="form-control" id="telephone" name="telephone"
         value="<?= htmlspecialchars($user['telephone']) ?>" required>
     </div>
-    <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+      <a href="index.php" class="btn btn-secondary ">กลับ</a>
+    </div>
   </form>
 </div>
-
-
-<?php $conn->close(); ?>

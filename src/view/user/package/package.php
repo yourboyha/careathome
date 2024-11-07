@@ -35,7 +35,7 @@ $result_all_packages = $conn->query($sql_all_packages);
                                 <p class='card-text'>" . htmlspecialchars($row['package_description']) . "</p>
                                 <p><strong>ราคา: </strong>" . htmlspecialchars($row['cost']) . " บาท</p>
                                 <!-- ฟอร์มสำหรับลบแพ็คเกจที่เลือก -->
-                                <form method='POST' action='delete_package.php'>
+                                <form method='POST' action='package/delete_package.php'>
                                     <input type='hidden' name='user_id' value='" . $user_id . "'>
                                     <button type='submit' class='btn btn-danger'>ลบแพ็คเกจ</button>
                                 </form>
@@ -53,7 +53,7 @@ $result_all_packages = $conn->query($sql_all_packages);
   <h2 class="mb-4 text-center">เลือกแพ็คเกจใหม่</h2>
 
   <!-- ฟอร์มค้นหาข้อมูลแพ็คเกจ -->
-  <form class="mb-4" method="POST" action="showpackage.php">
+  <form class="mb-4" method="POST" action="package/package.php">
     <div class="input-group">
       <input type="text" class="form-control" name="search_term" placeholder="ค้นหาชื่อแพ็คเกจ"
         value="<?php echo htmlspecialchars($searchTerm); ?>">
@@ -72,7 +72,7 @@ $result_all_packages = $conn->query($sql_all_packages);
                                 <h5 class='card-title'>" . htmlspecialchars($row['package_name']) . "</h5>
                                 <p class='card-text'>" . htmlspecialchars($row['package_description']) . "</p>
                                 <p><strong>ราคา: </strong>" . htmlspecialchars($row['cost']) . " บาท</p>
-                                <form method='POST' action='select_package.php'>
+                                <form method='POST' action='package/select_package.php'>
                                     <input type='hidden' name='package_id' value='" . $row['package_id'] . "'>
                                     <button type='submit' class='btn btn-success'>เลือกแพ็คเกจ</button>
                                 </form>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../../controller/connect.php";
+include "../../../controller/connect.php";
 include "chkss.php";  // ตรวจสอบ session
 
 $user_id = $_SESSION['user_id'];  // รับค่า user_id จาก session

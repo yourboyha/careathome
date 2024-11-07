@@ -40,6 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <label for="content">เนื้อหากระทู้:</label>
       <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">ตั้งกระทู้</button>
+    <div class="text-center mb-3 mt-3">
+      <button type="submit" class="btn btn-primary">ตั้งกระทู้</button>
+    </div>
   </form>
 </div>

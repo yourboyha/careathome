@@ -18,7 +18,9 @@
             <label for="confirm_password" class="form-label">ยืนยันรหัสผ่าน:</label>
             <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
         </div>
-        <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">ลงทะเบียน</button>
+        </div>
     </form>
 </div>
 <?php if (isset($_SESSION['error'])): ?>

@@ -53,13 +53,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['post_content'])) {
 
   <!-- ฟอร์มสำหรับตอบกระทู้ -->
   <h3 class="mt-4">ตอบกระทู้</h3>
-  <form method="POST" action="">
+  <form method="POST" action="" class="mb-3">
     <div class="form-group">
       <label for="post_content">เนื้อหาคำตอบ:</label>
       <textarea class="form-control" id="post_content" name="post_content" rows="3" required></textarea>
     </div>
-    <button type="submit" class="btn btn-primary mt-2">ส่งคำตอบ</button>
+    <div class="text-center mb3 mt-3">
+      <button type="submit" class="btn btn-primary ">ส่งคำตอบ</button>
+      <a href="?page=webboard" class="btn btn-secondary ">กลับไปยังหน้าจัดการกระทู้</a>
+    </div>
   </form>
 
-  <a href="?page=webboard" class="btn btn-secondary mt-3">กลับไปยังหน้าจัดการกระทู้</a>
+
+
 </div>

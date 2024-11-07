@@ -2,7 +2,7 @@
 
 <div class="container mt-5">
     <h1 class="text-center">เข้าสู่ระบบ</h1>
-    <form action="src/controller/submit_login.php" method="POST">
+    <form action="?page=submit_login" method="POST">
         <div class="mb-3">
             <label for="username" class="form-label">ชื่อผู้ใช้:</label>
             <input type="text" id="username" name="username" class="form-control" required>

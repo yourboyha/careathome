@@ -24,7 +24,6 @@ $sql_reviews = "SELECT rating, feedback, created_at FROM service_ratings WHERE u
 $result_reviews = $conn->query($sql_reviews);
 ?>
 
-?>
 <div class="container mt-5">
   <section class="rating">
     <h2>ให้คะแนนบริการของเรา</h2>

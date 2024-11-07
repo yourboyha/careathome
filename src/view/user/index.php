@@ -40,13 +40,15 @@ include "chkss.php";
     if (isset($_GET['page'])) {
       $page = $_GET['page'];
       if ($page == 'profile') {
-        include "showprofile.php";
+        include "profile.php";
       } else if ($page == 'patient') {
-        include "showpatient.php";
+        include "patient.php";
       } else if ($page == 'package') {
-        include "showpackage.php";
+        include "package/package.php";
       } else if ($page == 'webboard') {
-        include "webboard/show_webboard.php";
+        include "webboard/webboard.php";
+      } else if ($page == 'create_thread') {
+        include "webboard/create_thread.php";
       } else if ($page == 'view_thread' && isset($_GET['id'])) {
         // ตรวจสอบว่ามี id กระทู้หรือไม่ก่อนแสดงรายละเอียดกระทู้
         include "webboard/view_thread.php";

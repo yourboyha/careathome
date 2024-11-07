@@ -1,6 +1,6 @@
 <?php
-session_start();
-include "connect.php";
+// session_start();
+// include "connect.php";
 
 // ตรวจสอบว่ามีการส่งข้อมูลฟอร์มหรือไม่
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -26,13 +26,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             switch ($_SESSION['role']) {
                 case 'admin':
-                    header("Location: ../view/admin/index.php");
+                    header("Location: ?page=admin");
                     exit();
                 case 'user':
-                    header("Location: ../view/user/index.php");
-                    exit();
-                case 'staff':
-                    header("Location: ../view/staff/index.php");
+                    header("Location: ?page=user");
                     exit();
                 default:
                     header("Location: index.php");
