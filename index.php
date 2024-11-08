@@ -1,5 +1,5 @@
 <?php
-// logout.php
+
 session_start();
 include "src/controller/connect.php";
 ?>

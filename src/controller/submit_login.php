@@ -1,6 +1,5 @@
 <?php
-// session_start();
-// include "connect.php";
+
 
 // ตรวจสอบว่ามีการส่งข้อมูลฟอร์มหรือไม่
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

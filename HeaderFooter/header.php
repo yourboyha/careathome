@@ -14,7 +14,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="/careathome/index.php?page=home">หน้าหลัก</a></li>
-                <li class="nav-item"><a class="nav-link active" href="/careathome/index.php?page=about">เกี่ยวกับเรา</a></li>
+                <li class="nav-item"><a class="nav-link" href="/careathome/index.php?page=about">เกี่ยวกับเรา</a></li>
                 <li class="nav-item"><a class="nav-link" href="/careathome/index.php?page=services">การให้บริการ</a></li>
                 <li class="nav-item"><a class="nav-link" href="/careathome/index.php?page=contact">ติดต่อ</a></li>
             </ul>
@@ -23,8 +23,6 @@
         <!-- User Section -->
         <div class="d-flex ms-auto align-items-center" id="user-section">
             <?php
-            // session_start();
-            // echo $_SESSION['username'];
 
             // ตรวจสอบสถานะการ login
             if (isset($_SESSION['username'])) {

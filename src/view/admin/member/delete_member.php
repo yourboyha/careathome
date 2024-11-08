@@ -16,7 +16,7 @@ if (isset($_GET['id'])) {
     $stmt_delete_ratings->bind_param("i", $id);
     $stmt_delete_ratings->execute();
 
-    // ลบข้อมูลจาก service_ratings ก่อน
+    // ลบข้อมูลจาก webboard ก่อน
     $sql_delete_posts = "DELETE FROM posts WHERE user_id = ?";
     $stmt_delete_posts = $conn->prepare(query: $sql_delete_posts);
     $stmt_delete_posts->bind_param("i", $id);
