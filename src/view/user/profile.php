@@ -23,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   echo $fullname;
 
-  // อัพเดตข้อมูลในฐานข้อมูล
-  $updateSql = "UPDATE users SET username = ?, email = ?, role = ?, fullname = ?, address = ?, telephone = ? WHERE user_id = ?";
+  // อัพเดตข้อมูลในฐานข้อมูล โดยไม่รวม role
+  $updateSql = "UPDATE users SET username = ?, email = ?, fullname = ?, address = ?, telephone = ? WHERE user_id = ?";
   $updateStmt = $conn->prepare($updateSql);
-  $updateStmt->bind_param("ssssssi", $username, $email, $role, $fullname, $address, $telephone, $user_id);
+  $updateStmt->bind_param("ssssi", $username, $email, $fullname, $address, $telephone, $user_id);
 
   if ($updateStmt->execute()) {
     // แสดง alert และ redirect
@@ -57,13 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <label for="email" class="form-label">Email</label>
       <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>"
         required>
-    </div>
-    <div class="mb-3">
-      <label for="role" class="form-label">Role</label>
-      <select class="form-control" id="role" name="role" required>
-        <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
-        <option value="user" <?= $user['role'] == 'user' ? 'selected' : '' ?>>User</option>
-      </select>
     </div>
     <div class="mb-3">
       <label for="fullname" class="form-label">Fullname</label>

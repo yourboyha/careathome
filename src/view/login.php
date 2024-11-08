@@ -16,6 +16,8 @@
             echo "<p style='color: red;'>Login ไม่สำเร็จ</p>";
         }
         ?>
-        <button type="submit" class="btn btn-primary">เข้าสู่ระบบ</button>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">เข้าสู่ระบบ</button>
+        </div>
     </form>
 </div>
