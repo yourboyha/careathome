@@ -14,7 +14,7 @@ $user = $result->fetch_assoc();
 // ถ้าฟอร์มถูกส่ง
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // รับข้อมูลจากฟอร์ม
-    $username = $_POST['username'];
+    $username = $_POST['username']; // รับจาก hidden input
     $email = $_POST['email'];
     $role = $_POST['role'];
     $fullname = $_POST['fullname'];
@@ -35,55 +35,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <div class="container mt-3 mb-5">
-    <h1 cla0ss="text-center">แก้ไขข้อมูลส่วนตัว</h1>
+  <h1 class="text-center">แก้ไขข้อมูลส่วนตัว</h1>
 
-    <?php if (isset($message)) { ?>
-        <script type="text/javascript">
-            // แสดง alert
-            alert("<?php echo $message; ?>");
+  <?php if (isset($message)) { ?>
+  <script type="text/javascript">
+  alert("<?php echo $message; ?>");
+  window.location.href = "index.php?page=members";
+  </script>
+  <?php } ?>
 
-            // หลังจากแสดง alert แล้วทำการเปลี่ยนเส้นทางไปยังหน้า members
-            window.location.href = "index.php?page=members";
-        </script>
-
-    <?php } ?>
-
-    <form method="POST" action="">
-        <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" name="username"
-                value="<?= htmlspecialchars($user['username']) ?>" required>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>"
-                required>
-        </div>
-        <div class="mb-3">
-            <label for="role" class="form-label">Role</label>
-            <select class="form-control" id="role" name="role" required>
-                <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
-                <option value="user" <?= $user['role'] == 'user' ? 'selected' : '' ?>>User</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="fullname" class="form-label">Fullname</label>
-            <input type="text" class="form-control" id="fullname" name="fullname"
-                value="<?= htmlspecialchars($user['fullname']) ?>" required>
-        </div>
-        <div class="mb-3">
-            <label for="address" class="form-label">Address</label>
-            <input type="text" class="form-control" id="address" name="address"
-                value="<?= htmlspecialchars($user['address']) ?>" required>
-        </div>
-        <div class="mb-3">
-            <label for="telephone" class="form-label">Telephone</label>
-            <input type="text" class="form-control" id="telephone" name="telephone"
-                value="<?= htmlspecialchars($user['telephone']) ?>" required>
-        </div>
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
-            <a href="?page=members" class="btn btn-secondary">กลับ</a>
-        </div>
-    </form>
+  <form method="POST" action="">
+    <diass="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" class="form-control" id="username" name="username_display"
+        value="<?= htmlspecialchars($user['username']) ?>" disabled>
+      <input type="hidden" name="username" value="<?= htmlspecialchars($user['username']) ?>">
+    </diass=>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>"
+        required>
+    </div>
+    <div class="mb-3">
+      <label for="role" class="form-label">Role</label>
+      <select class="form-control" id="role" name="role" required>
+        <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
+        <option value="user" <?= $user['role'] == 'user' ? 'selected' : '' ?>>User</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="fullname" class="form-label">Fullname</label>
+      <input type="text" class="form-control" id="fullname" name="fullname"
+        value="<?= htmlspecialchars($user['fullname']) ?>" required>
+    </div>
+    <div class="mb-3">
+      <label for="address" class="form-label">Address</label>
+      <input type="text" class="form-control" id="address" name="address"
+        value="<?= htmlspecialchars($user['address']) ?>" required>
+    </div>
+    <div class="mb-3">
+      <label for="telephone" class="form-label">Telephone</label>
+      <input type="text" class="form-control" id="telephone" name="telephone"
+        value="<?= htmlspecialchars($user['telephone']) ?>" required>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+      <a href="?page=members" class="btn btn-secondary">กลับ</a>
+    </div>
+  </form>
 </div>

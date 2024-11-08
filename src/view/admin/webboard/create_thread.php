@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <div class="text-center mb-3 mt-3">
       <button type="submit" class="btn btn-primary">ตั้งกระทู้</button>
+      <a href="?page=webboard" class="btn btn-secondary">กลับ</a>
     </div>
   </form>
 </div>
