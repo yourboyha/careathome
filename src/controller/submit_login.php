@@ -1,49 +1,28 @@
 <?php
-
-
 // ตรวจสอบว่ามีการส่งข้อมูลฟอร์มหรือไม่
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
+    $username = $conn->real_escape_string($_POST['username']);
     $password = $_POST['password'];
 
-    // ป้องกัน SQL Injection
-    $username = $conn->real_escape_string($username);
-
     // ค้นหาผู้ใช้ในฐานข้อมูลเฉพาะ username
-    $sql = "SELECT * FROM users WHERE username='$username'";
-    $result = $conn->query($sql);
+    $result = $conn->query("SELECT * FROM users WHERE username='$username'");
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
+    if ($result->num_rows > 0 && ($row = $result->fetch_assoc()) && password_verify($password, $row['password'])) {
 
-        // ตรวจสอบรหัสผ่านที่ hash ไว้
-        if (password_verify($password, $row['password'])) {
-            // รหัสผ่านถูกต้อง
-            $_SESSION['user_id'] = $row['user_id'];
-            $_SESSION['username'] = $username;
-            $_SESSION['role'] = $row['role'];
+        $_SESSION['user_id'] = $row['user_id'];
+        $_SESSION['username'] = $username;
+        $_SESSION['role'] = $row['role'];
 
-            switch ($_SESSION['role']) {
-                case 'admin':
-                    header("Location: ?page=admin");
-                    exit();
-                case 'user':
-                    header("Location: ?page=user");
-                    exit();
-                default:
-                    header("Location: index.php");
-                    exit();
-            }
-        } else {
-            $_SESSION['loginfail'] = 'Login ไม่สำเร็จ';
-            header("Location: ../../index.php?page=login&error=login_failed");
-            exit();
-        }
+        // นำไปยังหน้าตาม role ที่กำหนด
+        $redirect = ($_SESSION['role'] === 'admin') ? "?page=admin" : "?page=user";
+        echo $redirect;
+        // "Location: ?page=admin"
+        header("Location: $redirect");
     } else {
         $_SESSION['loginfail'] = 'Login ไม่สำเร็จ';
         header("Location: ../../index.php?page=login&error=login_failed");
-        exit();
     }
+    exit();
 }
 
 $conn->close(); // ปิดการเชื่อมต่อ
