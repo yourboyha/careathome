@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2024 at 02:49 PM
+-- Generation Time: Nov 09, 2024 at 09:10 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -68,8 +68,8 @@ CREATE TABLE `patient_info` (
 
 INSERT INTO `patient_info` (`patient_id`, `user_id`, `fullname`, `patient_info`) VALUES
 (2, 17, 'ตาของนาย 7', 'ผู้สูงอายุหญิง อายุ 80 ปี มีอาการปวดเข่าและประสบปัญหาเรื่องการเคลื่อนไหว'),
-(4, 32, 'พ่อเฒ่า', 'อายุ 99 ปี              '),
-(5, 44, 'นายกอไก่', '        อายุ 60 ปี ต้องการการดูแลอย่างดี      ...');
+(7, 46, 'ทดสอบ ๆ ', '              ทดสอบ ๆ ทดสอบ ๆ ทดสอบ ๆ ทดสอบ ๆ '),
+(8, 3, 'ป๋า', 'อายุ 100 ปี              ');
 
 -- --------------------------------------------------------
 
@@ -102,10 +102,9 @@ INSERT INTO `posts` (`post_id`, `thread_id`, `user_id`, `content`, `created_at`,
 (15, 21, 2, 'สุดยอดจ้า', '2024-11-05 13:54:04', '2024-11-05 13:54:04'),
 (17, 19, 2, 'ไไไไไ', '2024-11-07 04:11:15', '2024-11-07 04:11:15'),
 (18, 19, 2, 'ๅๅๅๅ', '2024-11-07 04:11:19', '2024-11-07 04:11:19'),
-(19, 25, 2, '5555', '2024-11-07 04:18:00', '2024-11-07 04:18:00'),
-(20, 30, 44, 'ดัน ๆ ', '2024-11-07 13:16:43', '2024-11-07 13:16:43'),
-(21, 32, 2, 'qqqqqqq', '2024-11-07 13:40:58', '2024-11-07 13:40:58'),
-(22, 30, 2, 'จัดไปครับ', '2024-11-07 13:41:18', '2024-11-07 13:41:18');
+(25, 34, 2, 'ดดดดดด', '2024-11-08 02:01:54', '2024-11-08 02:01:54'),
+(26, 21, 2, 'แจ่ม ๆ', '2024-11-09 07:34:29', '2024-11-09 07:34:29'),
+(27, 17, 2, 'เห็นด้วยนะ', '2024-11-09 07:35:10', '2024-11-09 07:35:10');
 
 -- --------------------------------------------------------
 
@@ -160,8 +159,8 @@ INSERT INTO `service_ratings` (`rating_id`, `user_id`, `rating`, `feedback`, `cr
 (36, 24, 5, 'บริการรวดเร็วทันใจ พนักงานเป็นกันเอง', '2024-11-05 12:26:07'),
 (38, 23, 4, 'ดี แต่มีบางจุดที่สามารถพัฒนาเพิ่มเติมได้', '2024-11-05 12:26:07'),
 (39, 31, 5, 'บริการดีมาก พนักงานน่ารักทุกคน', '2024-11-05 12:26:07'),
-(88, 44, 5, 'ดูแลดีมากๆครับ', '2024-11-07 13:17:35'),
-(90, 44, 4, 'ดีมาก ๆ', '2024-11-07 13:20:28');
+(92, 3, 5, 'แจ่มเลยครับ', '2024-11-09 07:43:37'),
+(93, 3, 3, 'ปานกลางนะผมว่า', '2024-11-09 07:43:46');
 
 -- --------------------------------------------------------
 
@@ -190,9 +189,9 @@ INSERT INTO `threads` (`thread_id`, `user_id`, `title`, `content`, `created_at`,
 (22, 2, 'ได้ยุบ่', 'ได้ยุบ่', '2024-11-07 04:11:31', '2024-11-07 04:11:31'),
 (23, 2, 'qqqq', 'qqqq', '2024-11-07 04:13:04', '2024-11-07 04:13:04'),
 (24, 2, 'qqq', 'qqq', '2024-11-07 04:13:28', '2024-11-07 04:13:28'),
-(25, 2, 'qqq', 'qqq', '2024-11-07 04:14:37', '2024-11-07 04:14:37'),
-(30, 44, 'ผมอยากหาคนมาดูแลผู้สูงอายุครับ', 'อายุประมาณ 60ปี', '2024-11-07 13:16:34', '2024-11-07 13:16:34'),
-(32, 2, 'qq', 'qqq', '2024-11-07 13:40:51', '2024-11-07 13:40:51');
+(33, 46, 'ต้องการคนดูแลผู้สูงอายุโรคหัวใจ', 'ต้องการด่วนมาก ๆ', '2024-11-08 01:40:47', '2024-11-08 01:40:47'),
+(34, 2, 'ดดด', 'ดดดด', '2024-11-08 02:01:50', '2024-11-08 02:01:50'),
+(35, 2, 'ลดโค้ดแล้ว', 'ลดโค้ดแล้ว', '2024-11-09 07:36:23', '2024-11-09 07:36:23');
 
 -- --------------------------------------------------------
 
@@ -218,12 +217,11 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `email`, `username`, `password`, `role`, `fullname`, `address`, `telephone`, `action_timestamp`) VALUES
 (2, 'w.wimonput@gmail.com', 'admin', '$2y$10$wYC4ZoVJjpkHMhOGxE01/.co3ELHpPY1BmWu2XTl6xSR8U9knSEX6', 'admin', 'Mr.Wutipong Wimonput', '415555', '0946672645', '2024-11-06 13:50:03'),
-(3, 'w.wimonput@gmail.com', 'user', '$2y$10$wYC4ZoVJjpkHMhOGxE01/.co3ELHpPY1BmWu2XTl6xSR8U9knSEX6', 'user', 'นายวุฒิพงศ์ วิมลพัชรaaaaaaaayhhhh', '187 หมู่ 7 บ้าน ก่อ ถนน กัน ทรลักษณ์, ตำบล แสนสุข', '0910171373', '2024-11-06 13:54:54'),
+(3, 'w.wimonput@gmail.com', 'user', '$2y$10$wYC4ZoVJjpkHMhOGxE01/.co3ELHpPY1BmWu2XTl6xSR8U9knSEX6', 'user', 'นายวุฒิพงศ์ วิมลพัชร ัyesir', '187 หมู่ 7 บ้าน ก่อ ถนน กัน ทรลักษณ์, ตำบล แสนสุข', '0910171373', '2024-11-09 07:47:11'),
 (4, 'admin1@example.com', 'admin1', '$2y$10$wYC4ZoVJjpkHMhOGxE01/.co3ELHpPY1BmWu2XTl6xSR8U9knSEX6', 'admin', 'Admin User One', '123 Admin St.', '012-345-6789', '2024-11-06 02:35:53'),
 (5, 'admin2@example.com', 'admin2', '$2y$10$wYC4ZoVJjpkHMhOGxE01/.co3ELHpPY1BmWu2XTl6xSR8U9knSEX6', 'admin', 'Admin User Two', '456 Admin Ave.', '012-987-6543', '2024-11-06 02:35:53'),
 (6, 'user1@example.com', 'user1', '$2y$10$wYC4ZoVJjpkHMhOGxE01/.co3ELHpPY1BmWu2XTl6xSR8U9knSEX6', 'user', 'User One', '789 User Rd.555555555555', '013-456-7890', '2024-11-06 02:35:53'),
 (7, 'user2@example.com', 'user2', '$2y$10$wYC4ZoVJjpkHMhOGxE01/.co3ELHpPY1BmWu2XTl6xSR8U9knSEX6', 'user', 'User Two', '321 User St.', '013-654-3210', '2024-11-06 02:35:53'),
-(14, 'admin3@example.com', 'admin3', '$2y$10$wYC4ZoVJjpkHMhOGxE01/.co3ELHpPY1BmWu2XTl6xSR8U9knSEX6', 'admin', 'Admin User Three', '400 Admin Rd.', '012-123-6781', '2024-11-06 02:35:53'),
 (16, 'user6@example.com', 'user6', '$2y$10$wYC4ZoVJjpkHMhOGxE01/.co3ELHpPY1BmWu2XTl6xSR8U9knSEX6', 'user', 'User Six', '100 User Rd.', '013-123-4561', '2024-11-06 02:35:53'),
 (17, 'user7@example.com', 'user7', '$2y$10$wYC4ZoVJjpkHMhOGxE01/.co3ELHpPY1BmWu2XTl6xSR8U9knSEX6', 'user', 'User Seven', '101 User Rd.', '013-123-4562', '2024-11-06 02:35:53'),
 (19, 'user9@example.com', 'user9', '$2y$10$wYC4ZoVJjpkHMhOGxE01/.co3ELHpPY1BmWu2XTl6xSR8U9knSEX6', 'user', 'User Nine', '103 User Rd.', '013-123-4564', '2024-11-06 02:35:53'),
@@ -236,10 +234,13 @@ INSERT INTO `users` (`user_id`, `email`, `username`, `password`, `role`, `fullna
 (29, 'user16@example.com', 'user16', '$2y$10$wYC4ZoVJjpkHMhOGxE01/.co3ELHpPY1BmWu2XTl6xSR8U9knSEX6', 'user', 'User Sixteen', '110 User Rd.', '013-123-4571', '2024-11-06 02:35:53'),
 (30, 'user17@example.com', 'user17', '$2y$10$wYC4ZoVJjpkHMhOGxE01/.co3ELHpPY1BmWu2XTl6xSR8U9knSEX6', 'user', 'User Seventeen', '111 User Rd.', '013-123-4572', '2024-11-06 02:35:53'),
 (31, 'user18@example.com', 'user18', '$2y$10$wYC4ZoVJjpkHMhOGxE01/.co3ELHpPY1BmWu2XTl6xSR8U9knSEX6', 'user', 'User Eighteen', '112 User Rd.', '013-123-4573', '2024-11-06 02:35:53'),
-(32, 'user19@example.com', 'user19', '$2y$10$wYC4ZoVJjpkHMhOGxE01/.co3ELHpPY1BmWu2XTl6xSR8U9knSEX6', 'user', 'User Nineteen', '113 User Rd.', '013-123-4574', '2024-11-06 02:35:53'),
 (33, 'user20@example.com', 'user20', '$2y$10$wYC4ZoVJjpkHMhOGxE01/.co3ELHpPY1BmWu2XTl6xSR8U9knSEX6', 'user', 'User Twenty', '114 User Rd.', '013-123-4575', '2024-11-06 02:35:53'),
-(44, 'w.wimonput@gmail.com', 'user111', '$2y$10$UcpJoO20bV3AOOn9Xn3WGe0xP2oehP9WDak2vKwZKkLllClBJ6mlC', 'user', 'vkvkvkvkvkvkvk555', '415555555555', '0946672645', '2024-11-07 13:36:18'),
-(45, '555@gmail.com', 'user555', '$2y$10$BgYXodntsS.TYMswlBZnxeS1poLf8pYB39dBjcrBSUJ9fs148uYxe', 'user', 'okpdddd', 'okpdddd', '000000000000', '2024-11-07 13:37:17');
+(45, '555@gmail.com', 'user555', '$2y$10$BgYXodntsS.TYMswlBZnxeS1poLf8pYB39dBjcrBSUJ9fs148uYxe', 'user', 'okpdddd11111199999', 'okpdddd', '000000000000', '2024-11-08 01:57:47'),
+(46, 'w.wimonput@gmail.com', 'user999', '$2y$10$k.4wKDF0rRNxmvOKUNpII.pHK8US9z.Ggxp7ozBzd2V8YXWj6hzhK', 'user', 'Mr.Wutipong Wimonput', '4151111', '0946672645', '2024-11-08 01:56:39'),
+(48, '111@gmail.com', 'yourboyhaha', '$2y$10$ZsxBthK3u8/x4.2aMjc.QeZoQ04Azx1AMN5pcBs.sSEBV9b/L7DvO', 'user', '', '', '', '2024-11-09 05:52:59'),
+(49, '222@gmail.com', 'qqq', '$2y$10$ri0UvhDcg3V7S.X9S0i0Fe3tFrq05GXkdQPn0nbjRMbyEp56T/W..', 'user', '', '', '', '2024-11-09 05:54:57'),
+(51, 'ooqqqo@gmail.com', 'hahahah', '$2y$10$BTG1xNXP5P5L1CCZXTB8G.GcdENsZtkF7Ik5PpqYOp6oiGohY9Nu2', 'user', 'qqqq', 'qqqqq', 'qqqq', '2024-11-09 07:05:25'),
+(52, '111@gmail.com', 'user123', '$2y$10$caaK5EJRJL.HISHMx0Kl8OlqptdnM2wxtw5hz92QvTfSGg08y8vI.', 'user', 'นายวุฒิพงศ์ วิมลพัชร', '415 หมู่ 20 ตำบลแสนสุข', '0910171373', '2024-11-09 06:52:29');
 
 -- --------------------------------------------------------
 
@@ -259,8 +260,11 @@ CREATE TABLE `user_package` (
 
 INSERT INTO `user_package` (`user_package_id`, `user_id`, `package_id`) VALUES
 (4, 33, 1),
-(18, 32, 2),
-(27, 44, 6);
+(98, 3, 6),
+(99, 3, 2),
+(100, 3, 3),
+(101, 3, 5),
+(107, 52, 1);
 
 --
 -- Indexes for dumped tables
@@ -284,8 +288,8 @@ ALTER TABLE `patient_info`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`post_id`),
-  ADD KEY `thread_id` (`thread_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `posts_ibfk_1` (`thread_id`),
+  ADD KEY `posts_ibfk_2` (`user_id`);
 
 --
 -- Indexes for table `pr`
@@ -306,7 +310,7 @@ ALTER TABLE `service_ratings`
 --
 ALTER TABLE `threads`
   ADD PRIMARY KEY (`thread_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `threads_ibfk_1` (`user_id`);
 
 --
 -- Indexes for table `users`
@@ -330,49 +334,49 @@ ALTER TABLE `user_package`
 -- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `package_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=18;
+  MODIFY `package_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `patient_info`
 --
 ALTER TABLE `patient_info`
-  MODIFY `patient_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=6;
+  MODIFY `patient_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `pr`
 --
 ALTER TABLE `pr`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `service_ratings`
 --
 ALTER TABLE `service_ratings`
-  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `threads`
 --
 ALTER TABLE `threads`
-  MODIFY `thread_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `thread_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=46;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `user_package`
 --
 ALTER TABLE `user_package`
-  MODIFY `user_package_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=28;
+  MODIFY `user_package_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=108;
 
 --
 -- Constraints for dumped tables
@@ -382,39 +386,33 @@ ALTER TABLE `user_package`
 -- Constraints for table `patient_info`
 --
 ALTER TABLE `patient_info`
-  ADD CONSTRAINT `userid_patient` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+  ADD CONSTRAINT `userid_patient` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `posts`
 --
 ALTER TABLE `posts`
-  ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`thread_id`) REFERENCES `threads` (`thread_id`),
-  ADD CONSTRAINT `posts_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
-
---
--- Constraints for table `pr`
---
-ALTER TABLE `pr`
-  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+  ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`thread_id`) REFERENCES `threads` (`thread_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `posts_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `service_ratings`
 --
 ALTER TABLE `service_ratings`
-  ADD CONSTRAINT `fk_user_rating` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+  ADD CONSTRAINT `fk_user_rating` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `threads`
 --
 ALTER TABLE `threads`
-  ADD CONSTRAINT `threads_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+  ADD CONSTRAINT `threads_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `user_package`
 --
 ALTER TABLE `user_package`
-  ADD CONSTRAINT `package_id` FOREIGN KEY (`package_id`) REFERENCES `packages` (`package_id`),
-  ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+  ADD CONSTRAINT `package_id` FOREIGN KEY (`package_id`) REFERENCES `packages` (`package_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
