@@ -16,11 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // นำไปยังหน้าตาม role ที่กำหนด
         $redirect = ($_SESSION['role'] === 'admin') ? "?page=admin" : "?page=user";
         echo $redirect;
-        // "Location: ?page=admin"
         header("Location: $redirect");
     } else {
         $_SESSION['loginfail'] = 'Login ไม่สำเร็จ';
-        header("Location: ../../index.php?page=login&error=login_failed");
+        header("Location: /careathome/index.php?page=login&error=login_failed");
     }
     exit();
 }
