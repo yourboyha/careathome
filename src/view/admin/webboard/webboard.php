@@ -2,10 +2,7 @@
 include 'chkadmin.php';
 
 // ฟังก์ชันค้นหาข้อมูลกระทู้
-$searchTerm = '';
-if (isset($_POST['search'])) {
-  $searchTerm = $_POST['search_term'];
-}
+$searchTerm = $_POST['search_term'] ?? '';
 
 // ดึงข้อมูลกระทู้จากฐานข้อมูล
 $sql = "SELECT * FROM threads WHERE title LIKE '%$searchTerm%' OR content LIKE '%$searchTerm%'";
