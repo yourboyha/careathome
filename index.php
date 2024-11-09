@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 include "src/controller/connect.php";
 ?>
@@ -19,37 +18,35 @@ include "src/controller/connect.php";
     <?php
     include "HeaderFooter/header.php";
 
-    if (isset($_GET['page'])) {
-        $page = $_GET['page'];
-        if ($page == 'about') {
-            include "src/view/public/about.php";
-        } else if ($page == 'services') {
-            include "src/view/public/services.php";
-        } else if ($page == 'contact') {
-            include "src/view/public/contact.php";
-        } else if ($page == 'login') {
-            include "src/view/login.php";
-        } else if ($page == 'submit_login') {
-            include "src/controller/submit_login.php";
-        } else if ($page == 'register') {
-            include "src/view/register.php";
-        } else if ($page == 'submit_register') {
-            include "src/controller/submit_register.php";
-        } else if ($page == 'logout') {
-            include "src/Controller/logout.php";
-        } else if ($page == 'admin') {
-            header("Location: /careathome/src/view/admin/index.php");
-        } else if ($page == 'user') {
-            header("Location: /careathome/src/view/user/index.php");
+    // หน้าในเว็บที่สามารถเลือกได้
+    $pages = [
+        'about' => 'src/view/public/about.php',
+        'services' => 'src/view/public/services.php',
+        'contact' => 'src/view/public/contact.php',
+        'login' => 'src/view/login.php',
+        'submit_login' => 'src/controller/submit_login.php',
+        'register' => 'src/view/register.php',
+        'submit_register' => 'src/controller/submit_register.php',
+        'logout' => 'src/Controller/logout.php',
+        'admin' => '/careathome/src/view/admin/index.php',  // รีไดเรกต์ไปยังหน้าแอดมิน
+        'user' => '/careathome/src/view/user/index.php'     // รีไดเรกต์ไปยังหน้าใช้งาน
+    ];
+
+    // ตรวจสอบว่า 'page' ได้รับค่าหรือไม่ และแสดงหน้าที่เลือก
+    $page = $_GET['page'] ?? 'home';  // หากไม่มีค่า 'page' ให้ใช้ 'home' เป็นค่าเริ่มต้น
+
+    if (array_key_exists($page, $pages)) {
+        if (strpos($pages[$page], '/') === 0) {
+            header("Location: " . $pages[$page]);  // ใช้ header เมื่อเป็นลิงก์ภายนอก
         } else {
-            include "src/view/home.php";
+            include $pages[$page];  // ใช้ include เมื่อเป็นไฟล์ภายใน
         }
     } else {
-        include "src/view/home.php";
+        include "src/view/home.php";  // หากไม่มีหน้าตรงกับที่เลือก ให้แสดงหน้า home
     }
-    include "HeaderFooter/footer.php"
-    ?>
 
+    include "HeaderFooter/footer.php";
+    ?>
 
 </body>
 

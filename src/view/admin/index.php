@@ -19,68 +19,43 @@ include 'chkadmin.php';
   <?php
   include "../../../HeaderFooter/header.php";
 
-  // ตรวจสอบว่าได้รับค่า page จาก URL หรือไม่
-  if (isset($_GET['page'])) {
-    $page = $_GET['page'];
-    // กรณีเลือกหน้าต่างๆ ของแอดมิน
-    if ($page == 'members') {
-      include "member/members.php";
-    } else if ($page == 'add_member') {
-      include "member/add_member.php";
-    } else if ($page == 'edit_member') {
-      include "member/edit_member.php";
-    } else if ($page == 'delete_member') {
-      include "member/delete_member.php";
-    } else if ($page == 'pr') {
-      include "pr/pr.php";
-    } else if ($page == 'package') {
-      include "package/package.php";
-    } else if ($page == 'add_package') {
-      include "package/add_package.php";
-    } else if ($page == 'edit_package') {
-      include "package/edit_package.php";
-    } else if ($page == 'delete_package') {
-      include "package/delete_package.php";
-    } else if ($page == 'view_users') {
-      include "package/view_users.php";
-    } else if ($page == 'pr') {
-      include "pr/pr.php";
-    } else if ($page == 'add_pr') {
-      include "pr/add_pr.php";
-    } else if ($page == 'delete_pr') {
-      include "pr/delete_pr.php";
-    } else if ($page == 'edit_pr') {
-      include "pr/edit_pr.php";
-    } else if ($page == 'review') {
-      include "review/review.php";
-    } else if ($page == 'delete_review') {
-      include "review/delete_review.php";
-    } else if ($page == 'webboard') {
-      include "webboard/webboard.php";
-    } else if ($page == 'create_thread') {
-      include "webboard/create_thread.php";
-    } else if ($page == 'view_thread') {
-      include "webboard/view_thread.php";
-    } else if ($page == 'delete_thread') {
-      include "webboard/delete_thread.php";
-    } else if ($page == 'report') {
-      include "report.php";
-    } else {
-      include "home.php";
-    }
-  } else {
-    include "home.php";
-  }
-  ?>
+  // หน้าแอดมินที่สามารถเลือกได้
+  $pages = [
+    'members' => 'member/members.php',
+    'add_member' => 'member/add_member.php',
+    'edit_member' => 'member/edit_member.php',
+    'delete_member' => 'member/delete_member.php',
+    'pr' => 'pr/pr.php',
+    'package' => 'package/package.php',
+    'add_package' => 'package/add_package.php',
+    'edit_package' => 'package/edit_package.php',
+    'delete_package' => 'package/delete_package.php',
+    'view_users' => 'package/view_users.php',
+    'add_pr' => 'pr/add_pr.php',
+    'delete_pr' => 'pr/delete_pr.php',
+    'edit_pr' => 'pr/edit_pr.php',
+    'review' => 'review/review.php',
+    'delete_review' => 'review/delete_review.php',
+    'webboard' => 'webboard/webboard.php',
+    'create_thread' => 'webboard/create_thread.php',
+    'view_thread' => 'webboard/view_thread.php',
+    'delete_thread' => 'webboard/delete_thread.php',
+    'report' => 'report.php'
+  ];
 
-  <?php
+  // ตรวจสอบว่า 'page' ได้รับค่าหรือไม่
+  $page = $_GET['page'] ?? 'home';  // หากไม่มีค่า 'page' ให้ใช้ 'home' เป็นค่าเริ่มต้น
+
+  // แสดงหน้าที่เลือก
+  if (array_key_exists($page, $pages)) {
+    include $pages[$page];
+  } else {
+    include "home.php";  // หากไม่มีหน้าตรงกับที่เลือก ให้แสดงหน้า home
+  }
+
   include "../../../HeaderFooter/footer.php"
   ?>
-
-
-
 </body>
 
 </html>
-
 <?php $conn->close(); ?>

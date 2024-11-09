@@ -14,12 +14,10 @@ include "chkss.php";
   <link rel="stylesheet" href="/careathome/css/styles.css">
   <link rel="stylesheet" href="/careathome/css/bootstrap.min.css">
   <style>
-    /* ลด margin ด้านล่างของเมนู */
     .list-group {
       margin-bottom: 20px;
     }
 
-    /* กำหนดความสูงของคอนเทนเนอร์เพื่อลดช่องว่าง */
     .container {
       min-height: 80vh;
       display: flex;
@@ -32,39 +30,29 @@ include "chkss.php";
 <body>
   <?php
   include "../../../HeaderFooter/header.php";
-  ?>
-  <!-- ส่วนแสดงเนื้อหา -->
-  <div id="contentDisplay" class="mt-4">
-    <?php
-    // ตรวจสอบว่า page มีการส่งค่ามาหรือไม่ และแสดงเนื้อหาตามที่เลือก
-    if (isset($_GET['page'])) {
-      $page = $_GET['page'];
-      if ($page == 'profile') {
-        include "profile.php";
-      } else if ($page == 'patient') {
-        include "patient.php";
-      } else if ($page == 'package') {
-        include "package/package.php";
-      } else if ($page == 'webboard') {
-        include "webboard/webboard.php";
-      } else if ($page == 'create_thread') {
-        include "webboard/create_thread.php";
-      } else if ($page == 'view_thread' && isset($_GET['id'])) {
-        // ตรวจสอบว่ามี id กระทู้หรือไม่ก่อนแสดงรายละเอียดกระทู้
-        include "webboard/view_thread.php";
-      } else if ($page == 'review') {
-        include "review.php";
-      } else {
-        include "home.php";
-      }
-    } else {
-      include "home.php";
-    }
-    ?>
-  </div>
-  </div>
-  <?php
-  include "../../../HeaderFooter/footer.php"
+
+  // หน้าในเว็บที่สามารถเลือกได้
+  $pages = [
+    'profile' => 'profile.php',
+    'patient' => 'patient.php',
+    'package' => 'package/package.php',
+    'webboard' => 'webboard/webboard.php',
+    'create_thread' => 'webboard/create_thread.php',
+    'view_thread' => isset($_GET['id']) ? 'webboard/view_thread.php' : null,  // ตรวจสอบว่า 'id' มีหรือไม่
+    'review' => 'review.php'
+  ];
+
+  // ตรวจสอบว่า 'page' ได้รับค่าหรือไม่
+  $page = $_GET['page'] ?? 'home';  // หากไม่มีค่า 'page' ให้ใช้ 'home' เป็นค่าเริ่มต้น
+
+  // เลือกแสดงหน้าตามค่าใน array $pages
+  if (array_key_exists($page, $pages) && $pages[$page]) {
+    include $pages[$page];
+  } else {
+    include "home.php";  // หากไม่มีหน้าตรงกับที่เลือก ให้แสดงหน้า home
+  }
+
+  include "../../../HeaderFooter/footer.php";
   ?>
 
 </body>
