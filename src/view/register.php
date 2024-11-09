@@ -23,27 +23,20 @@
         </div>
     </form>
 </div>
-<?php if (isset($_SESSION['error'])): ?>
+
+<?php if (!empty($_SESSION['error']) || !empty($_SESSION['success'])): ?>
     <script>
-        alert("<?= $_SESSION['error'] ?>");
+        alert("<?= $_SESSION['error'] ?? $_SESSION['success'] ?>");
+        <?php unset($_SESSION['error'], $_SESSION['success']); ?>
     </script>
-    <?php unset($_SESSION['error']); ?>
-<?php elseif (isset($_SESSION['success'])): ?>
-    <script>
-        alert("<?= $_SESSION['success'] ?>");
-    </script>
-    <?php unset($_SESSION['success']); ?>
 <?php endif; ?>
 
 <script>
     function validatePasswords() {
-        var password = document.getElementById("password").value;
-        var confirmPassword = document.getElementById("confirm_password").value;
-
-        if (password !== confirmPassword) {
+        if (document.getElementById("password").value !== document.getElementById("confirm_password").value) {
             alert("รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน กรุณาลองใหม่");
-            return false; // หยุดการ submit
+            return false;
         }
-        return true; // รหัสผ่านตรงกัน อนุญาตให้ส่งฟอร์ม
+        return true;
     }
 </script>
