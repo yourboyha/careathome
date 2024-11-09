@@ -6,7 +6,7 @@ $searchTerm = '';
 $roleFilter = 'all'; // ตัวแปรสำหรับจัดเก็บบทบาทที่เลือก
 
 if (isset($_POST['search'])) {
-  $searchTerm = $_POST['search_term'];
+  $searchTerm = htmlspecialchars($_POST['search_term']); // ป้องกัน XSS
 }
 
 if (isset($_POST['role'])) {
@@ -14,15 +14,25 @@ if (isset($_POST['role'])) {
 }
 
 // ดึงข้อมูลผู้ใช้งานจากฐานข้อมูลตามบทบาท
-$sql = "SELECT * FROM users WHERE (username LIKE '%$searchTerm%' OR fullname LIKE '%$searchTerm%' OR email LIKE '%$searchTerm%')";
+$sql = "SELECT * FROM users WHERE (username LIKE ? OR fullname LIKE ? OR email LIKE ?)";
 
 if ($roleFilter !== 'all') {
-  $sql .= " AND role = '$roleFilter'";
+  $sql .= " AND role = ?";
 }
 
-$result = $conn->query($sql);
-?>
+$stmt = $conn->prepare($sql);
 
+// Bind parameters
+$searchTermWildcard = "%" . $searchTerm . "%";
+if ($roleFilter !== 'all') {
+  $stmt->bind_param("ssss", $searchTermWildcard, $searchTermWildcard, $searchTermWildcard, $roleFilter);
+} else {
+  $stmt->bind_param("sss", $searchTermWildcard, $searchTermWildcard, $searchTermWildcard);
+}
+
+$stmt->execute();
+$result = $stmt->get_result();
+?>
 
 <div class="container mt-5">
   <h1 class="mb-4 text-center">จัดการผู้ใช้งาน</h1>

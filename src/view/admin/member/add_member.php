@@ -3,30 +3,51 @@ include 'chkadmin.php';
 
 // ตรวจสอบว่ามีการส่งข้อมูลจากฟอร์มหรือไม่
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $username = $_POST['username'];
+  // รับข้อมูลจากฟอร์มและป้องกัน XSS
+  $username = htmlspecialchars($_POST['username']);
   $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // แฮชรหัสผ่าน
-  $email = $_POST['email'];
-  $role = $_POST['role'];
-  $fullname = $_POST['fullname'];
-  $address = $_POST['address'];
-  $telephone = $_POST['telephone'];
+  $email = htmlspecialchars($_POST['email']);
+  $role = htmlspecialchars($_POST['role']);
+  $fullname = htmlspecialchars($_POST['fullname']);
+  $address = htmlspecialchars($_POST['address']);
+  $telephone = htmlspecialchars($_POST['telephone']);
 
   // สร้างคำสั่ง SQL สำหรับเพิ่มผู้ใช้งาน
-  $sql = "INSERT INTO users (username, password, email, role, fullname, address, telephone) VALUES ('$username', '$password', '$email', '$role', '$fullname', '$address', '$telephone')";
+  $sql = "INSERT INTO users (username, password, email, role, fullname, address, telephone) 
+          VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-  if ($conn->query($sql) === TRUE) {
-    // เพิ่มข้อมูลสำเร็จ
-    header("Location: ?page=members&success=1");
-    exit();
+  // เตรียมคำสั่ง SQL
+  if ($stmt = $conn->prepare($sql)) {
+    // ผูกค่าพารามิเตอร์
+    $stmt->bind_param("sssssss", $username, $password, $email, $role, $fullname, $address, $telephone);
+
+    // ตรวจสอบว่าเพิ่มข้อมูลสำเร็จหรือไม่
+    if ($stmt->execute()) {
+      header("Location: ?page=members&success=1");
+      exit();
+    } else {
+      $error_message = "เกิดข้อผิดพลาดในการเพิ่มผู้ใช้งาน: " . $stmt->error;
+    }
+
+    // ปิดคำสั่ง SQL
+    $stmt->close();
   } else {
-    // เกิดข้อผิดพลาด
-    $error_message = $conn->error;
+    $error_message = "ไม่สามารถเตรียมคำสั่ง SQL ได้";
   }
 }
 ?>
 
 <div class="container mt-5 ">
   <h1 class="text-center mb-4">เพิ่มผู้ใช้งาน</h1>
+
+  <!-- แสดงข้อความผิดพลาด -->
+  <?php if (isset($error_message)): ?>
+    <div class="alert alert-danger">
+      <?php echo $error_message; ?>
+    </div>
+  <?php endif; ?>
+
+  <!-- ฟอร์มเพิ่มผู้ใช้งาน -->
   <form action="" method="POST">
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
