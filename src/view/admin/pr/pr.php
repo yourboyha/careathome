@@ -2,10 +2,7 @@
 include 'chkadmin.php';
 
 // ฟังก์ชันค้นหาข้อมูลข่าวประชาสัมพันธ์
-$searchTerm = '';
-if (isset($_POST['search'])) {
-  $searchTerm = $_POST['search_term'];
-}
+$searchTerm = $_POST['search_term'] ?? '';
 
 // ดึงข้อมูลข่าวประชาสัมพันธ์จากฐานข้อมูล
 $sql = "SELECT * FROM pr WHERE 

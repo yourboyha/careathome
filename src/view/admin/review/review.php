@@ -2,10 +2,7 @@
 include 'chkadmin.php';
 
 // ฟังก์ชันค้นหาข้อมูลรีวิว
-$searchTerm = '';
-if (isset($_POST['search'])) {
-  $searchTerm = $_POST['search_term'];
-}
+$searchTerm = $_POST['search_term'] ?? '';
 
 // ดึงข้อมูลรีวิวจากฐานข้อมูล
 $sql = "SELECT sr.*, u.fullname FROM service_ratings sr JOIN users u ON sr.user_id = u.user_id WHERE 

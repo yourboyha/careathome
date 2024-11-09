@@ -2,10 +2,8 @@
 include 'chkadmin.php';
 
 // ดึงข้อมูลแพ็คเกจจากฐานข้อมูล
-$searchTerm = '';
-if (isset($_POST['search'])) {
-  $searchTerm = $_POST['search_term'];
-}
+$searchTerm = $_POST['search_term'] ?? '';
+
 
 $sql = "SELECT * FROM packages WHERE package_name LIKE '%$searchTerm%' OR package_description LIKE '%$searchTerm%'";
 $result = $conn->query($sql);
