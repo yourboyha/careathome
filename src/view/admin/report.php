@@ -1,30 +1,25 @@
 <?php
-
 include 'chkadmin.php';
 
+// ดึงข้อมูลทั้งหมดในคำสั่ง SQL เดียว
+$sql = "
+    SELECT 
+        (SELECT COUNT(*) FROM users WHERE role = 'admin') AS total_admins,
+        (SELECT COUNT(*) FROM users WHERE role = 'user') AS total_users,
+        (SELECT COUNT(*) FROM service_ratings) AS total_reviews,
+        (SELECT AVG(rating) FROM service_ratings) AS avg_rating,
+        (SELECT COUNT(*) FROM threads) AS total_threads,
+        (SELECT COUNT(*) FROM posts) AS total_posts
+";
+$result = $conn->query($sql);
+$data = $result->fetch_assoc();
 
-// ดึงข้อมูลสรุปของสมาชิก
-$admin_count_sql = "SELECT COUNT(*) as total_admins FROM users WHERE role = 'admin'";
-$user_count_sql = "SELECT COUNT(*) as total_users FROM users WHERE role = 'user'";
-$admin_count_result = $conn->query($admin_count_sql);
-$user_count_result = $conn->query($user_count_sql);
-$admin_count = $admin_count_result->fetch_assoc()['total_admins'];
-$user_count = $user_count_result->fetch_assoc()['total_users'];
-
-// ดึงข้อมูลสรุปรีวิว
-$reviews_sql = "SELECT COUNT(*) as total_reviews, AVG(rating) as avg_rating FROM service_ratings";
-$reviews_result = $conn->query($reviews_sql);
-$reviews_data = $reviews_result->fetch_assoc();
-$total_reviews = $reviews_data['total_reviews'];
-$avg_rating = round($reviews_data['avg_rating'], 2);
-
-// ดึงข้อมูลสรุปการถามตอบในกระทู้
-$threads_sql = "SELECT COUNT(*) as total_threads FROM threads";
-$posts_sql = "SELECT COUNT(*) as total_posts FROM posts";
-$threads_result = $conn->query($threads_sql);
-$posts_result = $conn->query($posts_sql);
-$total_threads = $threads_result->fetch_assoc()['total_threads'];
-$total_posts = $posts_result->fetch_assoc()['total_posts'];
+$admin_count = $data['total_admins'];
+$user_count = $data['total_users'];
+$total_reviews = $data['total_reviews'];
+$avg_rating = round($data['avg_rating'], 2);
+$total_threads = $data['total_threads'];
+$total_posts = $data['total_posts'];
 ?>
 
 <div class="container mt-5">
