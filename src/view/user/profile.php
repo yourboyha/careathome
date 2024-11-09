@@ -4,32 +4,17 @@ include "chkss.php";
 $user_id = $_SESSION['user_id'];
 
 // ดึงข้อมูลผู้ใช้จากฐานข้อมูล
-$sql = "SELECT * FROM users WHERE user_id = ?";
-$stmt = $conn->prepare($sql);
+$stmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
-$result = $stmt->get_result();
-$user = $result->fetch_assoc();
+$user = $stmt->get_result()->fetch_assoc();
 
-// ถ้าฟอร์มถูกส่ง
+// อัพเดตข้อมูลเมื่อฟอร์มถูกส่ง
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  // รับข้อมูลจากฟอร์ม
-  $username = $_POST['username'];
-  $email = $_POST['email'];
-  $role = $_POST['role'];
-  $fullname = $_POST['fullname'];
-  $address = $_POST['address'];
-  $telephone = $_POST['telephone'];
+  $stmt = $conn->prepare("UPDATE users SET username = ?, email = ?, fullname = ?, address = ?, telephone = ? WHERE user_id = ?");
+  $stmt->bind_param("sssssi", $_POST['username'], $_POST['email'], $_POST['fullname'], $_POST['address'], $_POST['telephone'], $user_id);
 
-  echo $fullname;
-
-  // อัพเดตข้อมูลในฐานข้อมูล โดยล็อค role ไว้เป็นค่าเดิม
-  $updateSql = "UPDATE users SET username = ?, email = ?, fullname = ?, address = ?, telephone = ? WHERE user_id = ?";
-  $updateStmt = $conn->prepare($updateSql);
-  $updateStmt->bind_param("sssssi", $username, $email, $fullname, $address, $telephone, $user_id);
-
-  if ($updateStmt->execute()) {
-    // แสดง alert และ redirect
+  if ($stmt->execute()) {
     echo "<script>
                 alert('ข้อมูลถูกอัพเดตเรียบร้อย');
                 window.location.href = '/careathome/src/view/user/index.php';
@@ -51,13 +36,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
       <input type="text" class="form-control" id="username" name="username"
-        value="<?= htmlspecialchars($user['username']) ?>" required>
+        value="<?= htmlspecialchars($user['username']) ?>" readonly>
     </div>
-    <div class="mb-3">
-      <label for="email" class="form-label">Email</label>
-      <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>"
-        required>
-    </div>
+
+    <?php foreach (['email', 'fullname', 'address', 'telephone'] as $field) { ?>
+      <div class="mb-3">
+        <label for="<?= $field ?>" class="form-label"><?= ucfirst($field) ?></label>
+        <input type="<?= $field == 'email' ? 'email' : 'text' ?>" class="form-control" id="<?= $field ?>"
+          name="<?= $field ?>" value="<?= htmlspecialchars($user[$field]) ?>" required>
+      </div>
+    <?php } ?>
+
     <div class="mb-3">
       <label for="role" class="form-label">Role</label>
       <select class="form-control" id="role" name="role" disabled>
@@ -65,24 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <option value="user" <?= $user['role'] == 'user' ? 'selected' : '' ?>>User</option>
       </select>
     </div>
-    <div class="mb-3">
-      <label for="fullname" class="form-label">Fullname</label>
-      <input type="text" class="form-control" id="fullname" name="fullname"
-        value="<?= htmlspecialchars($user['fullname']) ?>" required>
-    </div>
-    <div class="mb-3">
-      <label for="address" class="form-label">Address</label>
-      <input type="text" class="form-control" id="address" name="address"
-        value="<?= htmlspecialchars($user['address']) ?>" required>
-    </div>
-    <div class="mb-3">
-      <label for="telephone" class="form-label">Telephone</label>
-      <input type="text" class="form-control" id="telephone" name="telephone"
-        value="<?= htmlspecialchars($user['telephone']) ?>" required>
-    </div>
+
     <div class="mb-3">
       <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
-      <a href="index.php" class="btn btn-secondary ">กลับ</a>
+      <a href="index.php" class="btn btn-secondary">กลับ</a>
     </div>
   </form>
 </div>
