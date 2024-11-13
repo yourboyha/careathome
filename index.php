@@ -1,5 +1,7 @@
 <?php
+// เริ่มต้น session เพื่อตรวจสอบการเข้าระบบของผู้ใช้งาน
 session_start();
+// เชื่อมต่อกับฐานข้อมูล
 include "src/controller/connect.php";
 ?>
 
@@ -7,15 +9,16 @@ include "src/controller/connect.php";
 <html lang="th">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>บริการดูแลผู้สูงอายุ</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>บริการดูแลผู้สูงอายุ</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 
 <body>
-    <?php
+  <?php
+    // เรียกใช้งาน header 
     include "HeaderFooter/header.php";
 
     // หน้าในเว็บที่สามารถเลือกได้
@@ -44,7 +47,7 @@ include "src/controller/connect.php";
     } else {
         include "src/view/home.php";  // หากไม่มีหน้าตรงกับที่เลือก ให้แสดงหน้า home
     }
-
+    // เรียกใช้งาน footer
     include "HeaderFooter/footer.php";
     ?>
 

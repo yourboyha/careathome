@@ -1,4 +1,5 @@
 <?php
+// นับจำนวนการเข้าชมเว็บไซต์
 $file = "src/view/counter.txt";
 $current_count = file_get_contents($file);
 $current_count = intval($current_count);

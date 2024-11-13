@@ -1,4 +1,5 @@
 <?php
+// ตรวจสอบการเข้าสู่ระบบของผู้ใช้งาน
 include "chkss.php";
 
 $user_id = $_SESSION['user_id'];
@@ -15,10 +16,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $result_reviews = $conn->query("SELECT rating, feedback, created_at FROM service_ratings WHERE user_id = '$user_id' ORDER BY created_at DESC");
 ?>
 
+<!-- ส่วนแสดงผลข้อมูลรีวิว -->
 <div class="container mt-5">
   <section class="rating">
     <h2>ให้คะแนนบริการของเรา</h2>
+    <!-- ฟอร์มรีวิว -->
     <form method="POST">
+      <!-- คะแนนรีวิว -->
       <div class="form-group">
         <label for="rating">ให้คะแนน (1-5 ดาว):</label>
         <select class="form-control text-center" id="rating" name="rating" required>
@@ -30,15 +34,17 @@ $result_reviews = $conn->query("SELECT rating, feedback, created_at FROM service
           <option value="5">5 ดาว</option>
         </select>
       </div>
+      <!-- ข้อความรีวิว -->
       <div class="form-group mt-3">
         <label for="feedback">ความคิดเห็น:</label>
         <textarea class="form-control" id="feedback" name="feedback" rows="4" required></textarea>
       </div>
+      <!-- ปุ่มส่งคะแนน -->
       <button type="submit" class="btn btn-primary mt-3">ส่งคะแนน</button>
     </form>
     <?php if (isset($message)) echo $message; ?>
   </section>
-
+  <!-- ประวัติการรีวิว -->
   <section class="reviews mt-5">
     <h3>ประวัติการรีวิวของคุณ</h3>
     <?php
@@ -57,5 +63,5 @@ $result_reviews = $conn->query("SELECT rating, feedback, created_at FROM service
     ?>
   </section>
 </div>
-
+<!-- ปิดการเชื่อมต่อฐานข้อมูล -->
 <?php $conn->close(); ?>
